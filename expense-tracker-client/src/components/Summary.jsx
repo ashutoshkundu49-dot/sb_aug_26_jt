@@ -1,6 +1,7 @@
 import React from 'react'
 
-const Summary = () => {
+const Summary = ({expenses}) => {
+  const totalExpense=expenses.reduce((accum,exp)=>exp.price+accum,0)
   return (
     <div className='bg-white rounded-2xl shadow-md p-6 mb-6 '>
             <h2 className='text-xl font-semibold text-gray-700 mb-4'>Summary</h2>
@@ -10,7 +11,7 @@ const Summary = () => {
           <div className='text-3xl'>💸</div>
           <div>
               <p className=' font-medium text-gray-500 text-sm'>Total Expenses</p>
-            <p className='text-2xl text-blue-600 font-bold'>10000</p>
+            <p className='text-2xl text-blue-600 font-bold'>{totalExpense}</p>
           </div>
            
            </div>
@@ -20,7 +21,7 @@ const Summary = () => {
             <div className='text-3xl'>📝</div>
             <div>
  <p className=' font-medium text-gray-500 text-sm'>Total Entries</p>
-            <p className='text-2xl text-green-600 font-bold'>10</p>
+            <p className='text-2xl text-green-600 font-bold'>{expenses.length}</p>
             </div>
            
            </div>

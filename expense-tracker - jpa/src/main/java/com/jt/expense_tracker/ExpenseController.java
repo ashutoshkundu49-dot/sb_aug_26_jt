@@ -49,14 +49,6 @@ public class ExpenseController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteExpense(@PathVariable int id) {
 
-        // String sql="delete from %s where id=?".formatted(EXPENSES_TABLE);
-
-        // jdbcTemplate.update(sql,id);
-        // Expense toBeDeletedExpense= getExpenseById(id);
-        // expenseRepository.delete(toBeDeletedExpense);
-
-        // getExpenseById(id);
-        // expenseRepository.deleteById(id);
         expenSeservice.deleteExpenseById(id);
 
     }
@@ -64,17 +56,7 @@ public class ExpenseController {
     @PutMapping("/expenses")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Expense updateExpense(@RequestBody Expense expense) {
-        // var sql="update %s set title=?,category=?,price=?,date=? where
-        // id=?".formatted(EXPENSES_TABLE);
 
-        // jdbcTemplate.update(sql,
-        // expense.getTitle(),expense.getCategory(),expense.getPrice(),expense.getDate(),expense.getId());
-
-        // Expense updatedExpense= getExpenseById(expense.getId());
-        // return updatedExpense;
-
-        // getExpenseById(expense.getId());
-        // return expenseRepository.save(expense);
         return expenSeservice.updateExpense(expense);
 
     }

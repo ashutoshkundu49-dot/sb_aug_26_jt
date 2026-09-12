@@ -1,29 +1,33 @@
 import axios from 'axios'
-import React, { useState } from 'react'
 
-export const ExpenseList = () => {
 
-    const [expenses,setExpenses]=useState([])
+export const ExpenseList = ({expenses}) => {
 
-    const getExpenses=async ()=>{
+    
+   
+
+    const handleDelete=async(expenseId)=>{
+        if(confirm("are you sure to delete the Expense")){
         try{
-
-        
-        const response=await axios.get("http://localhost:8080/expenses")
-        // console.log("data is ",response.data);
-        setExpenses(response.data)
-        }catch(err){
-            console.log("Error is ",err);
-            
+            const response= await axios.delete("http://localhost:8080/expenses/"+expenseId)
+            if(response.status === 204){
+                getExpenses();
+            }else{
+                alert("something went wrong")
+            }
+        }catch(error){
+          console.log("some error occurred:-",error);
+          
         }
-        
     }
-    getExpenses()
+}
+  
+     
   return (
      <div className='bg-white rounded-2xl shadow-md p-6 mb-6'>
             <h2 className='text-xl font-semibold text-gray-700 mb-4'>Expense List</h2>
-
-            <table className='w-full text-sm text-left'>
+          <div className='overflow-x-auto'>
+               <table className='w-full text-sm text-left'>
                <thead>
                 <tr className='bg-gray-100 text-gray-600 uppercase text-xs font-semibold '>
                     <td className='px-4 py-3'>#</td>
@@ -35,10 +39,13 @@ export const ExpenseList = () => {
                 </tr>
                </thead>
                <tbody>
-               {
+
+               
+                {!expenses.length ?
+                <tr><td colSpan={6} className='text-center text-gray-400 font font-medium italic'>No expense record yet</td></tr>:
                 expenses.map((exp,idx)=>(
                    
-                 <tr className='border-b border-gray-200 hover:bg-gray-50 transition-colors'>
+                 <tr key={idx} className='border-b border-gray-200 hover:bg-gray-50 transition-colors'>
                     <td className='px-4 py-3 text-gray-400 '>{idx+1}</td>
                     <td className='px-4 py-3 text-gray-700 font-medium '>{exp.title}</td>
                     <td className='px-4 py-3'>
@@ -51,7 +58,7 @@ export const ExpenseList = () => {
                     <td className='px-4 py-3'>
                         <div className='flex gap-2  justify-center '>
                          <button className='bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-lg px-3 py-1.5 transition-colors duration-200 text-xs' >Edit</button>
-                        <button className='bg-red-400 hover:bg-red-500 text-white font-semibold rounded-lg px-3 py-1.5 transition-colors duration-200 text-xs'>Delete</button>
+                        <button onClick={()=>handleDelete(exp.id)} className='bg-red-400 hover:bg-red-500 text-white font-semibold rounded-lg px-3 py-1.5 transition-colors duration-200 text-xs'>Delete</button>
                         </div>
                         
                     </td>
@@ -65,6 +72,8 @@ export const ExpenseList = () => {
                 
                </tbody>
             </table>
+          </div>
+           
     </div>
   )
 }
