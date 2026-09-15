@@ -57,7 +57,7 @@ function handleEdit(expense){
                     <td className='px-4 py-3'>
                         <span className='bg-blue-100 text-blue-700 font-semibold rounded-full px-2 py-1 text-xs'>
                             {exp.category}
-                            </span>
+                            </span> 
                             </td>
                     <td className='px-4 py-3 font-semibold text-gray-700'>{exp.price}</td>
                     <td className='px-4 py-3 text-gray-600'>{exp.date}</td>
