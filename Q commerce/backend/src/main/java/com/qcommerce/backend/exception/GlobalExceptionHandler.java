@@ -2,6 +2,7 @@ package com.qcommerce.backend.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -28,6 +29,31 @@ public class GlobalExceptionHandler {
        problemDetail.setProperty("TimeStamp",LocalDateTime.now());
 
        return problemDetail;
+    }
+
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ProblemDetail handleResourceNotFoundException(ResourceNotFoundException e){
+        ProblemDetail problemDetail = ProblemDetail
+                .forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+        problemDetail.setProperty("Timestamp", LocalDateTime.now());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ProblemDetail handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e){
+        ProblemDetail problemDetail = ProblemDetail
+                .forStatusAndDetail(HttpStatus.METHOD_NOT_ALLOWED, e.getMessage());
+        problemDetail.setProperty("Timestamp", LocalDateTime.now());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(InvalidFileException.class)
+    public ProblemDetail handleInvalidFileException(InvalidFileException e){
+        ProblemDetail problemDetail = ProblemDetail
+                .forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+        problemDetail.setProperty("Timestamp", LocalDateTime.now());
+        return problemDetail;
     }
 
 

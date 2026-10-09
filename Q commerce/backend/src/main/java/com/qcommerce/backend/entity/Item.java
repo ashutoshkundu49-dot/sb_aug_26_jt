@@ -34,7 +34,7 @@ public class Item {
     @Column(nullable = false)
     private boolean active=true;
 
-    private String image;
+    private String itemImage;
 
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "category_id",nullable = false)
